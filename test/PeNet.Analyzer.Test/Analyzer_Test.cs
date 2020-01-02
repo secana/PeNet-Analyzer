@@ -47,8 +47,9 @@ namespace PeNet.Analyzer.Test
         public void HasEntryPointWithoutCode(string file, bool isValid)
         {
             var peFile = new PeFile(file);
+            var anomaly = new EntryPointWithoutCode(peFile);
 
-            Assert.Equal(isValid, peFile.HasEntryPointWithoutCode());
+            Assert.Equal(isValid, anomaly.IsMatch);
         }
 
         [Theory]
