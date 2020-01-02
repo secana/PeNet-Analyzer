@@ -1,0 +1,52 @@
+trigger:
+  branches:
+    include:
+    - '*'
+  tags:
+    include:
+    - '*'
+
+pool:
+  vmImage: 'windows-2019'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+
+- powershell: $version = ($env:Build_SourceBranch -replace 'refs/tags/v',''); echo $version; echo "##vso[task.setvariable variable=version]$version"
+  displayName: Get version from tag
+  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
+
+- powershell: ((Get-Content -path .\src\PeNet.Analyzer\PeNet.Analyzer.csproj -Raw) -replace '0.0.0',$env:version) | Set-Content -Path .\src\PeNet.Analyzer\PeNet.Analyzer.csproj
+  displayName: Replace version with git tag
+  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
+
+- task: DotNetCoreCLI@2
+  displayName: 'Run Unit-Tests'
+  inputs:
+   command: test
+   projects: '**/*test/*.csproj'
+   arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+
+- task: NuGetToolInstaller@0
+  displayName: Install NuGet
+  inputs:
+    versionSpec: '5.4.0'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Pack Nuget Package'
+  inputs:
+    command: 'pack'
+    packagesToPack: '**\src\**\*.csproj'
+    configuration: $(buildConfiguration)
+
+#- task: NuGetCommand@2
+#  displayName: 'Publish NuGet Packages'
+#  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
+#  inputs:
+#    command: push
+#    nuGetFeedType: external
+#    allowPackageConflicts: true
+#    publishFeedCredentials: 'Nuget.org'
+#    packagesToPush: '$(build.artifactStagingDirectory)/*.nupkg'
