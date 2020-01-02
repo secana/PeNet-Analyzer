@@ -1,3 +1,4 @@
+using PeNet.Analyzer.Anomalies;
 using Xunit;
 
 namespace PeNet.Analyzer.Test
@@ -22,9 +23,10 @@ namespace PeNet.Analyzer.Test
         [InlineData(@".\Binaries\6583c22f7d5ce48224875035c03643deecfcd14f29dd081021c458351b9185ea", true)]
         public void HasEntryPointOutOfFileSize(string file, bool isValid)
         {
-            var peFile = new PeNet.PeFile(file);
+            var peFile = new PeFile(file);
+            var anomaly = new EntryPointOutOfBounds(peFile);
 
-            Assert.Equal(isValid, peFile.HasEntryPointOutOfFileSize());
+            Assert.Equal(isValid, anomaly.IsMatch);
         }
 
         [Theory]
@@ -44,7 +46,7 @@ namespace PeNet.Analyzer.Test
         [InlineData(@".\Binaries\4df983666111ccfd9b4e9f5e304ae3ad9728f7d8c99ddc71bfa539eb342be13c", true)]
         public void HasEntryPointWithoutCode(string file, bool isValid)
         {
-            var peFile = new PeNet.PeFile(file);
+            var peFile = new PeFile(file);
 
             Assert.Equal(isValid, peFile.HasEntryPointWithoutCode());
         }
@@ -66,7 +68,7 @@ namespace PeNet.Analyzer.Test
         [InlineData(@".\Binaries\6583c22f7d5ce48224875035c03643deecfcd14f29dd081021c458351b9185ea", true)]
         public void HasInvalidImportDirectoryRva(string file, bool isValid)
         {
-            var peFile = new PeNet.PeFile(file);
+            var peFile = new PeFile(file);
 
             Assert.Equal(isValid, peFile.HasInvalidImportDirectoryRva());
         }
@@ -88,7 +90,7 @@ namespace PeNet.Analyzer.Test
         [InlineData(@".\Binaries\6583c22f7d5ce48224875035c03643deecfcd14f29dd081021c458351b9185ea", true)]
         public void HasInvalidSection(string file, bool isValid)
         {
-            var peFile = new PeNet.PeFile(file);
+            var peFile = new PeFile(file);
 
             Assert.Equal(isValid, peFile.HasInvalidSection());
         }
@@ -110,7 +112,7 @@ namespace PeNet.Analyzer.Test
         [InlineData(@".\Binaries\7a8dfac680eb829cddb4af041438521babfc527cd8961521e1aeb574a863ce37", true)]
         public void HasInvalidResourceDirectory(string file, bool isValid)
         {
-            var peFile = new PeNet.PeFile(file);
+            var peFile = new PeFile(file);
 
             Assert.Equal(isValid, peFile.HasInvalidResourceDirectory());
         }
