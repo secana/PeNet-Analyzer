@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <PackageProjectUrl>https://github.com/secana/PeNet-Analyzer</PackageProjectUrl>
+    <Version>0.0.0</Version>
+    <Authors>Stefan Hausotte</Authors>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <Description>PeNet.Analyzer finds anomalies in Portable Executables (PE) files.</Description>
+    <Copyright>2020 @ Stefan Hausotte</Copyright>
+    <RepositoryUrl>https://github.com/secana/PeNet-Analyzer</RepositoryUrl>
+    <PackageTags>PE Header Portable Executable Malware</PackageTags>
+    <PackageIcon>icon.png</PackageIcon>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>PeNet.snk</AssemblyOriginatorKeyFile>
+    <LangVersion>8</LangVersion>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PeNet" Version="1.5.0" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\resource\icon.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>
