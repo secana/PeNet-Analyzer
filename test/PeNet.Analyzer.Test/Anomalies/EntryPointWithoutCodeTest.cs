@@ -1,8 +1,9 @@
-﻿using Xunit;
+﻿using PeNet.Analyzer.Anomalies;
+using Xunit;
 
 namespace PeNet.Analyzer.Test.Anomalies
 {
-    public class EntryPointWithoutCode
+    public class EntryPointWithoutCodeTest
     {
         [Theory]
         [InlineData(@".\Binaries\9d5eb5ac899764d5ed30cc93df8d645e598e2cbce53ae7bb081ded2c38286d1e", false)]
@@ -22,7 +23,7 @@ namespace PeNet.Analyzer.Test.Anomalies
         public void HasEntryPointWithoutCode(string file, bool isValid)
         {
             var peFile = new PeFile(file);
-            var anomaly = new Analyzer.Anomalies.EntryPointWithoutCode(peFile);
+            var anomaly = new EntryPointWithoutCode(peFile);
 
             Assert.Equal(isValid, anomaly.IsMatch);
         }

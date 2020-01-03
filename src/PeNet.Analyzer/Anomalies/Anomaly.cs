@@ -6,7 +6,14 @@
         Crash
     }
 
-    public abstract class Anomaly
+    public interface IAnomaly
+    {
+        string Description { get; }
+        RuntimeBehavior RuntimeBehavior { get; }
+        bool IsMatch { get; }
+    }
+
+    public abstract class Anomaly : IAnomaly
     {
         private readonly PeFile _peFile;
         public string Description { get; }
