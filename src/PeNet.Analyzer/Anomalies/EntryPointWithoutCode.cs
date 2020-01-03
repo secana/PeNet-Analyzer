@@ -11,7 +11,7 @@ namespace PeNet.Analyzer.Anomalies
 
         protected override bool MatchAnomaly(PeFile peFile)
         {
-            if (peFile.HasEntryPointOutOfFileSize())
+            if (new EntryPointOutOfBounds(peFile).IsMatch)
                 return false;
 
             var ep = peFile.ImageNtHeaders?.OptionalHeader?.AddressOfEntryPoint;

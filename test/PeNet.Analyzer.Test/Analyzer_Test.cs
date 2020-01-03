@@ -70,8 +70,9 @@ namespace PeNet.Analyzer.Test
         public void HasInvalidImportDirectoryRva(string file, bool isValid)
         {
             var peFile = new PeFile(file);
+            var anomaly = new InvalidImportDirectoryRva(peFile);
 
-            Assert.Equal(isValid, peFile.HasInvalidImportDirectoryRva());
+            Assert.Equal(isValid, anomaly.IsMatch);
         }
 
         [Theory]
@@ -92,8 +93,9 @@ namespace PeNet.Analyzer.Test
         public void HasInvalidSection(string file, bool isValid)
         {
             var peFile = new PeFile(file);
+            var anomaly = new InvalidSection(peFile);
 
-            Assert.Equal(isValid, peFile.HasInvalidSection());
+            Assert.Equal(isValid, anomaly.IsMatch);
         }
 
         [Theory]
@@ -114,8 +116,9 @@ namespace PeNet.Analyzer.Test
         public void HasInvalidResourceDirectory(string file, bool isValid)
         {
             var peFile = new PeFile(file);
+            var anomaly = new InvalidResourceDirectory(peFile);
 
-            Assert.Equal(isValid, peFile.HasInvalidResourceDirectory());
+            Assert.Equal(isValid, anomaly.IsMatch);
         }
     }
 }

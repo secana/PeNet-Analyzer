@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -66,6 +67,10 @@
     <None Update="Binaries\c1bc025393dcf0347313e56a89616314379d2eb835df81e0f00bb9b8e3821b1f">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Anomalies\" />
   </ItemGroup>
 
 </Project>
