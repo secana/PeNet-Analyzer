@@ -3,9 +3,19 @@ using Xunit;
 
 namespace PeNet.Analyzer.Test.Anomalies
 {
-    public class InvalidSectionTest
+    public class SectionOutOfBoundsTest
     {
         [Theory]
+        [InlineData(@".\Binaries\acfeec58dc7be53f3f35621d0cf4407273e5f61a95564461aadbabca2f3712b6", true)]
+        [InlineData(@".\Binaries\1667a0ab685fc4dcceaf42bbf14407c8139842049009d23812370dae22fcb1e3", false)]
+        [InlineData(@".\Binaries\4096590bacb061e8b3960140fca7a8267a91da5f3ca8ed781d00ff8e96b6c002", false)]
+        [InlineData(@".\Binaries\6cf5ae6258470e82410af6b459bca25cf2d958debb937abf7b286ec98fa58f46", true)]
+        [InlineData(@".\Binaries\2ba29d070c0ee0b7b795079bb0bcaff99d5a6db3ef5d82ee643157199e8f2b84", false)]
+        [InlineData(@".\Binaries\d9d217f9ab7ada074f5cb6f2377fd815ca65217d6e2829e02de11479a2603432", true)]
+        [InlineData(@".\Binaries\bacd60d9791230cf44773668befd752b2895438d0f8ae7b57cb950231f177d5f", false)]
+        [InlineData(@".\Binaries\5f5f3fed3ce290493d0de0b4009fbdadff9ab95cc1ba552d78a81da6094557b8", false)]
+        [InlineData(@".\Binaries\5d5807d417a3b07df675092754309919df0e2bcce0f1547fa63fde96d60aa1cf", false)]
+        [InlineData(@".\Binaries\9443ca103b62ccc90e1a55f765477b5663742d0ccc999713f951632c573d7850", false)]
         [InlineData(@".\Binaries\9d5eb5ac899764d5ed30cc93df8d645e598e2cbce53ae7bb081ded2c38286d1e", false)]
         [InlineData(@".\Binaries\56eb4985aeb09e28d0a5689ba9c6f791eb6ad31143d65bdb9858e90f718eb49b", false)]
         [InlineData(@".\Binaries\0389f753504c2aac14dd947155f2baa8cff6381ae124fcbc6cf98710271738ac", false)]
@@ -20,10 +30,10 @@ namespace PeNet.Analyzer.Test.Anomalies
         [InlineData(@".\Binaries\bc284c90411f3ad4f0ff858fdbad164c324fe6e7b30c662363a67da0f356abeb", true)]
         [InlineData(@".\Binaries\7a8dfac680eb829cddb4af041438521babfc527cd8961521e1aeb574a863ce37", true)]
         [InlineData(@".\Binaries\6583c22f7d5ce48224875035c03643deecfcd14f29dd081021c458351b9185ea", true)]
-        public void HasInvalidSection(string file, bool isValid)
+        public void HasSectionOutOfBounds(string file, bool isValid)
         {
             var peFile = new PeFile(file);
-            var anomaly = new InvalidSection(peFile);
+            var anomaly = new SectionOutOfBounds(peFile);
 
             Assert.Equal(isValid, anomaly.IsMatch);
         }

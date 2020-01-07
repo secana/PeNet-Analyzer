@@ -2,9 +2,9 @@
 
 namespace PeNet.Analyzer.Anomalies
 {
-    public class InvalidSection : Anomaly
+    public class SectionOutOfBounds : Anomaly
     {
-        public InvalidSection(PeFile peFile)
+        public SectionOutOfBounds(PeFile peFile)
             : base(peFile,
                 "One or more sections are outside of the executable.",
                 RuntimeBehavior.NotRunnable) { }
