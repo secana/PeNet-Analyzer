@@ -6,6 +6,7 @@ namespace PeNet.Analyzer.Test.Anomalies
     public class SectionOutOfBoundsTest
     {
         [Theory]
+        [InlineData(@".\Binaries\4d5bc8f3311079eadcc8031f5a648e7e1ec68b9d2aed0342d9ec426259603e96", false)]
         [InlineData(@".\Binaries\acfeec58dc7be53f3f35621d0cf4407273e5f61a95564461aadbabca2f3712b6", true)]
         [InlineData(@".\Binaries\1667a0ab685fc4dcceaf42bbf14407c8139842049009d23812370dae22fcb1e3", false)]
         [InlineData(@".\Binaries\4096590bacb061e8b3960140fca7a8267a91da5f3ca8ed781d00ff8e96b6c002", false)]

@@ -46,6 +46,9 @@
     <None Update="Binaries\4096590bacb061e8b3960140fca7a8267a91da5f3ca8ed781d00ff8e96b6c002">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Binaries\4d5bc8f3311079eadcc8031f5a648e7e1ec68b9d2aed0342d9ec426259603e96">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Binaries\4df983666111ccfd9b4e9f5e304ae3ad9728f7d8c99ddc71bfa539eb342be13c">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
