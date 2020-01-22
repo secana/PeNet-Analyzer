@@ -3,7 +3,8 @@
     public enum RuntimeBehavior
     {
         NotRunnable,
-        Crash
+        Crash,
+        Runnable
     }
 
     public interface IAnomaly
