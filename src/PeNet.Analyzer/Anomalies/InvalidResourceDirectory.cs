@@ -1,4 +1,6 @@
-﻿namespace PeNet.Analyzer.Anomalies
+﻿using PeNet.Header.Pe;
+
+namespace PeNet.Analyzer.Anomalies
 {
     public class InvalidResourceDirectory : Anomaly
     {
@@ -8,10 +10,17 @@
                 RuntimeBehavior.NotRunnable) { }
 
         protected override bool MatchAnomaly(PeFile peFile)
-            => !peFile.HasValidResourceDir
-               && peFile
-                   .ImageNtHeaders
-                   .OptionalHeader
-                   .DataDirectory[(int)Constants.DataDirectoryIndex.Resource].Size != 0;
+        {
+            bool InValidResDir(PeFile peFile)
+            {
+                return peFile.ImageResourceDirectory == null;
+            }
+
+            return InValidResDir(peFile)
+                && peFile
+                    ?.ImageNtHeaders
+                    ?.OptionalHeader
+                    .DataDirectory[(int)DataDirectoryType.Resource].Size != 0;
+        }
     }
 }

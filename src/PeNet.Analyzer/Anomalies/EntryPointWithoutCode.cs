@@ -1,5 +1,4 @@
-﻿using PeNet.Utilities;
-
+﻿
 namespace PeNet.Analyzer.Anomalies
 {
     public class EntryPointWithoutCode : Anomaly
@@ -20,18 +19,17 @@ namespace PeNet.Analyzer.Anomalies
                 return true;
             if (ep == 0) return false;
 
-            var epRaw = ep.Value.SafeRVAtoFileMapping(peFile.ImageSectionHeaders);
-
-            if (epRaw is null)
+            if (!ep.Value.TryRvaToOffset(peFile.ImageSectionHeaders, out var epRaw))
                 return true;
 
             if (epRaw + 4 > peFile.FileSize)
                 return false;
 
-            return peFile.Buff[epRaw.Value] == 0
-                   && peFile.Buff[epRaw.Value + 1] == 0
-                   && peFile.Buff[epRaw.Value + 2] == 0
-                   && peFile.Buff[epRaw.Value + 3] == 0;
+            var s = peFile.RawFile.AsSpan(epRaw, 4);
+            return s[0] == 0
+                   && s[1] == 0
+                   && s[2] == 0
+                   && s[3] == 0;
         }
     }
 }

@@ -31,12 +31,12 @@ namespace PeNet.Analyzer.Test.Anomalies
         [InlineData(@".\Binaries\4df983666111ccfd9b4e9f5e304ae3ad9728f7d8c99ddc71bfa539eb342be13c", true)]
         [InlineData(@".\Binaries\8f721c7be23b762298826722bbeb4f3d74868baa881ecc5c701605e40a47e5a3", true)]
         [InlineData(@".\Binaries\7a8dfac680eb829cddb4af041438521babfc527cd8961521e1aeb574a863ce37", true)]
-        public void HasInvalidResourceDirectory(string file, bool isValid)
+        public void HasInvalidResourceDirectory(string file, bool expected)
         {
             var peFile = new PeFile(file);
             var anomaly = new InvalidResourceDirectory(peFile);
 
-            Assert.Equal(isValid, anomaly.IsMatch);
+            Assert.Equal(expected, anomaly.IsMatch);
         }
     }
 }

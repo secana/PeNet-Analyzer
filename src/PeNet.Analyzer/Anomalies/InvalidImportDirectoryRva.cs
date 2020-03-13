@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using PeNet.Structures;
-using PeNet.Utilities;
+using PeNet.Header.Pe;
 
 namespace PeNet.Analyzer.Anomalies
 {
@@ -13,26 +12,22 @@ namespace PeNet.Analyzer.Anomalies
 
         protected override bool MatchAnomaly(PeFile peFile)
         {
-            bool HasImportDir(IReadOnlyCollection<IMAGE_DATA_DIRECTORY> dataDir)
-                => !(dataDir?.Count < (int)Constants.DataDirectoryIndex.Import + 1);
+            bool HasImportDir(IReadOnlyCollection<ImageDataDirectory> dataDir)
+                => !(dataDir?.Count < (int)DataDirectoryType.Import + 1);
 
             var dataDirectory = peFile.ImageNtHeaders?.OptionalHeader?.DataDirectory;
 
             if (dataDirectory == null) return true;
             if (!HasImportDir(dataDirectory)) return true;
 
-            var impDirRva = dataDirectory[(int)Constants.DataDirectoryIndex.Import];
-
-            if (impDirRva is null)
-                return true;
+            var impDirRva = dataDirectory[(int)DataDirectoryType.Import];
 
             if (impDirRva.VirtualAddress == 0
                 && impDirRva.Size == 0)
                 return false;
 
-            var impDirRawAddress = impDirRva.VirtualAddress.SafeRVAtoFileMapping(peFile.ImageSectionHeaders);
-
-            return impDirRawAddress is null || impDirRawAddress > peFile.FileSize;
+            return !impDirRva.VirtualAddress.TryRvaToOffset(peFile.ImageSectionHeaders, out var impDirRawAddress) 
+                   || impDirRawAddress > peFile.FileSize;
         }
     }
 }

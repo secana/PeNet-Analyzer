@@ -1,6 +1,4 @@
-﻿using PeNet.Utilities;
-
-namespace PeNet.Analyzer.Anomalies
+﻿namespace PeNet.Analyzer.Anomalies
 {
     public class EntryPointOutOfBounds : Anomaly
     {
@@ -17,9 +15,8 @@ namespace PeNet.Analyzer.Anomalies
                 return true;
             if (ep == 0) return false;
 
-            var epRaw = ep.Value.SafeRVAtoFileMapping(peFile.ImageSectionHeaders);
 
-            if (epRaw is null)
+            if (!ep.Value.TryRvaToOffset(peFile.ImageSectionHeaders, out var epRaw))
                 return true;
 
             return epRaw > peFile.FileSize;
