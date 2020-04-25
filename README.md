@@ -8,7 +8,7 @@ To publish a new version to *nuget.org*, a tagged commit has to be pushed.
 
 ```powershell
 git tag -a v1.0.0-alpha2 -m "Release version v1.0.0-aplha2"
-git push origin 1.0.0-alpha2
+git push origin v1.0.0-alpha2
 ```
 
 Replace the version with the version that should be published.
