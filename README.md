@@ -7,8 +7,8 @@ Analyzers for Portable Executable anomalies and other malware behavior.
 To publish a new version to *nuget.org*, a tagged commit has to be pushed.
 
 ```powershell
-git tag -a v1.0.0-alpha2 -m "Release version v1.0.0-aplha2"
-git push origin v1.0.0-alpha2
+git tag -a v1.0.0 -m "Release version v1.0.0"
+git push origin v1.0.0
 ```
 
 Replace the version with the version that should be published.
