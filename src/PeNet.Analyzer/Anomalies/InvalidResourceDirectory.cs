@@ -28,14 +28,18 @@ namespace PeNet.Analyzer.Anomalies
                 .DataDirectory[(int)DataDirectoryType.Resource].Size == 0)
                 return true;
 
-            if (peFile.ImageResourceDirectory.NumberOfIdEntries +
-                peFile.ImageResourceDirectory.NumberOfNameEntries > 0
+            var numEntries = peFile.ImageResourceDirectory.NumberOfIdEntries +
+                             peFile.ImageResourceDirectory.NumberOfNameEntries;
+
+            if (numEntries > 0
                 && peFile.ImageResourceDirectory.DirectoryEntries == null)
                 return true;
 
-            if (peFile.ImageResourceDirectory.NumberOfIdEntries +
-                peFile.ImageResourceDirectory.NumberOfNameEntries >
+            if (numEntries >
                 peFile.ImageResourceDirectory.DirectoryEntries?.Count)
+                return true;
+
+            if (peFile.ImageNtHeaders != null && numEntries * 0x10 > peFile.ImageNtHeaders.OptionalHeader.DataDirectory[(int)DataDirectoryType.Resource].Size)
                 return true;
 
             return false;
