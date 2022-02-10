@@ -22,6 +22,12 @@ steps:
   displayName: Replace version with git tag
   condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
 
+- task: UseDotNet@2
+  displayName: "Use .NET Core 6.x"
+  inputs:
+    version: '6.x'
+    packageType: sdk
+    
 - task: DotNetCoreCLI@2
   displayName: 'Run Unit-Tests'
   inputs:
