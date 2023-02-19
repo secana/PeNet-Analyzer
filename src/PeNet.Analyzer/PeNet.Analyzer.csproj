@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6</TargetFrameworks>
+    <TargetFrameworks>net6;net7</TargetFrameworks>
     <PackageProjectUrl>https://github.com/secana/PeNet-Analyzer</PackageProjectUrl>
     <Version>0.0.0</Version>
     <Authors>Stefan Hausotte</Authors>
@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="PeNet" Version="2.9.9" />
+    <PackageReference Include="PeNet" Version="3.0.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
