@@ -7,7 +7,7 @@ trigger:
     - '*'
 
 pool:
-  vmImage: 'windows-2019'
+  vmImage: 'windows-2022'
 
 variables:
   buildConfiguration: 'Release'
@@ -23,9 +23,9 @@ steps:
   condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
 
 - task: UseDotNet@2
-  displayName: "Use .NET Core 6.x"
+  displayName: "Use .NET Core 7.x"
   inputs:
-    version: '6.x'
+    version: '7.x'
     packageType: sdk
     
 - task: DotNetCoreCLI@2
