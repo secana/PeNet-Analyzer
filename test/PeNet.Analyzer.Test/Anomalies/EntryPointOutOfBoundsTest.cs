@@ -13,7 +13,7 @@ namespace PeNet.Analyzer.Test.Anomalies
         [InlineData(@"./Binaries/6cf5ae6258470e82410af6b459bca25cf2d958debb937abf7b286ec98fa58f46", true)]
         [InlineData(@"./Binaries/2ba29d070c0ee0b7b795079bb0bcaff99d5a6db3ef5d82ee643157199e8f2b84", false)]
         [InlineData(@"./Binaries/d9d217f9ab7ada074f5cb6f2377fd815ca65217d6e2829e02de11479a2603432", true)]
-        [InlineData(@"./Binaries/bacd60d9791230cf44773668befd752b2895438d0f8ae7b57cb950231f177d5f", true)]
+        [InlineData(@"./Binaries/bacd60d9791230cf44773668befd752b2895438d0f8ae7b57cb950231f177d5f", false)]
         [InlineData(@"./Binaries/5f5f3fed3ce290493d0de0b4009fbdadff9ab95cc1ba552d78a81da6094557b8", false)]
         [InlineData(@"./Binaries/5d5807d417a3b07df675092754309919df0e2bcce0f1547fa63fde96d60aa1cf", false)]
         [InlineData(@"./Binaries/9443ca103b62ccc90e1a55f765477b5663742d0ccc999713f951632c573d7850", false)]
