@@ -1,0 +1,48 @@
+name: Release to NuGet
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+        
+    - name: Extract version from tag
+      id: get_version
+      run: |
+        # Remove 'v' prefix if present (e.g., v1.0.0 -> 1.0.0)
+        VERSION=${GITHUB_REF#refs/tags/}
+        VERSION=${VERSION#v}
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "Extracted version: $VERSION"
+        
+    - name: Restore dependencies
+      run: dotnet restore PeNet-Analyzer.sln
+      
+    - name: Build
+      run: dotnet build PeNet-Analyzer.sln --configuration Release --no-restore
+      
+    - name: Run tests
+      run: dotnet test PeNet-Analyzer.sln --configuration Release --no-build --verbosity normal
+      
+    - name: Pack NuGet package
+      run: dotnet pack src/PeNet.Analyzer/PeNet.Analyzer.csproj --configuration Release --no-build --output ./artifacts /p:PackageVersion=${{ steps.get_version.outputs.version }}
+      
+    - name: Push to NuGet
+      run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+      
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: nuget-package
+        path: ./artifacts/*.nupkg
