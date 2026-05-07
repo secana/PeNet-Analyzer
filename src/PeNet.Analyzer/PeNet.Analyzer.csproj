@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.203" PrivateAssets="All" />
-    <PackageReference Include="PeNet" Version="6.0.0" />
+    <PackageReference Include="PeNet" Version="6.1.1" />
   </ItemGroup>
 
   <ItemGroup>
